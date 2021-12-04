@@ -4,10 +4,10 @@
 
     Sub page_load(ByVal sender As Object, ByVal e As EventArgs)
 
-        Dim ndt As DateTime = New DateTime(1933, 9, 24, 6, 0, 0, 1)
-        Dim tdt As DateTime = New DateTime(1993, 9, 10, 6, 0, 0, 1)
+        Dim BirthDate As DateTime = New DateTime(1933, 9, 24, 6, 0, 0, 1)
+        Dim ToDate As DateTime = New DateTime(1993, 9, 10, 6, 0, 0, 1)
 
-        Response.Write(CalcAge(ndt, tdt))
+        Response.Write(CalcAge(BirthDate, ToDate))
         '59,11,17 
   
     End Sub
@@ -24,14 +24,16 @@
         If (ToDate.Month >= BirthDate.Month) Then
             Months = ToDate.Month - BirthDate.Month
         Else
-            Years -= 1
+            Years -= 1 'Decrease 1 year and increase 12 months
             Months = 12 + ToDate.Month - BirthDate.Month
         End If
 
         If (ToDate.Day >= BirthDate.Day) Then
             Days = ToDate.Day - BirthDate.Day
         Else
-            Months -= 1
+            'Decrease 1 month and increase days of previous month.
+            'Count day from previous month to ToDate.Day.
+            Months -= 1  
             Dim TmpDays As Integer = DaysInMonth(ToDate.Month - 1)
             Days = TmpDays + ToDate.Day - BirthDate.Day
             If (Months < 0) Then
